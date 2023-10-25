@@ -73,4 +73,15 @@ public class AccountResourceTest {
         .then()
         .statusCode(400);
     }
+
+    @Test
+    public void testTransferWithNegativeAmount() {
+        given()
+        .body("{\"fromUsername\": \"Mads\", \"toUsername\" : \"Thomas\", \"amount\": -1000}")
+        .header("Content-Type", "application/json")
+        .when()
+        .put("/api/transfer")
+        .then()
+        .statusCode(400);
+    }
 }
