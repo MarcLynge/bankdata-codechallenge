@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-public class GreetingResourceTest {
+public class AccountResourceTest {
 
     @Test
     public void testgetAccounts() {
@@ -20,15 +20,15 @@ public class GreetingResourceTest {
     @Test
     public void testNegativeBalanceWhenCreatingUser() {
         given()
-        .body("{\"username\": \"Bruce\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"123\"}")
+        .body("{\"username\": \"Tom\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"123\"}")
         .header("Content-Type", "application/json")
         .when()
         .post("/api/createAccount")
         .then()
-        .statusCode(200);
+        .statusCode(201);
 
         given()
-        .body("{\"username\": \"Bruce\", \"name\" : \"Bruce\", \"balance\": -1000, \"password\" : \"123\"}")
+        .body("{\"username\": \"Marc\", \"name\" : \"Bruce\", \"balance\": -1000, \"password\" : \"123\"}")
         .header("Content-Type", "application/json")
         .when()
         .post("/api/createAccount")
@@ -44,7 +44,7 @@ public class GreetingResourceTest {
         .when()
         .post("/api/createAccount")
         .then()
-        .statusCode(200);
+        .statusCode(201);
 
         given()
         .body("{\"username\": \"\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"123\"}")
@@ -58,12 +58,12 @@ public class GreetingResourceTest {
     @Test
     public void testMissingPasswordWhenCreatingUser() {
         given()
-        .body("{\"username\": \"Bruce\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"123\"}")
+        .body("{\"username\": \"Bruce991\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"123\"}")
         .header("Content-Type", "application/json")
         .when()
         .post("/api/createAccount")
         .then()
-        .statusCode(200);
+        .statusCode(201);
 
         given()
         .body("{\"username\": \"\", \"name\" : \"Bruce\", \"balance\": 1000, \"password\" : \"\"}")

@@ -1,6 +1,4 @@
 package org.acme.controller;
-import java.util.concurrent.CompletableFuture;
-
 import org.acme.model.Account;
 import org.acme.model.Transfer;
 import org.acme.service.AccountService;
@@ -39,7 +37,7 @@ public class AccountResource {
     public Response createAccount(@Valid Account acc) {
         Account created_acc = acc_service.createAccount(acc);
         if (created_acc == null) {return Response.status(400).entity("Username already exists or balance is below 0").build(); }
-        return Response.status(200).entity("User created: " + created_acc.getUsername()).build();
+        return Response.status(201).entity("User created: " + created_acc.getUsername()).build();
     }
 
     // Exercise - Transfer amount between accounts
